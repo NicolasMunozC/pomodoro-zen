@@ -9,3 +9,5 @@ export interface Pomodoro {
         autoStart: boolean
     }
   }
+
+export type ThemeColor = "red" | "green" | "blue"

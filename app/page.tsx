@@ -1,8 +1,8 @@
 'use client'
 
 import Settings from "@/componets/Settings";
-import { Pomodoro } from "@/types/interfaces";
-import { theme } from "@/utils/theme";
+import { Pomodoro, ThemeColor } from "@/types/types";
+// import { theme } from "@/utils/theme";
 import { Button, Chip } from "@nextui-org/react";
 // import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -24,14 +24,62 @@ export default function Home() {
     }
   })
 
+  const theme = {
+    light:{
+      bg: {
+        red: 'bg-red-50',
+        blue: 'bg-blue-50',
+        green: 'bg-green-50'
+      },
+      text: {
+        red: 'text-red-950',
+        blue: 'text-blue-950',
+        green: 'text-green-950'
+      },
+      chip:{
+        bg:{
+          red: 'bg-redAlpha-100/[0.15]',
+          blue: 'bg-blueAlpha-100/[0.15]',
+          green: 'bg-greenAlpha-100/[0.15]'
+        },
+        border:{
+          red: 'border-red-900',
+          blue: 'border-blue-900',
+          green: 'border-green-900'
+        }
+      },
+      button:{
+        bg: {
+          red: 'bg-redAlpha-100/[0.15]',
+          blue: 'bg-blueAlpha-100/[0.15]',
+          green: 'bg-greenAlpha-100/[0.15]'
+        },
+        specialBg: {
+          red: 'bg-redAlpha-700/[0.71]',
+          blue: 'bg-blueAlpha-600/[0.62]',
+          green: 'bg-greenAlpha-600/[0.62]'
+        }
+      }
+    },
+    dark: {
+      bg:{
+        red: 'bg-red-950',
+        blue: 'bg-blue-950',
+        green: 'bg-green-950'
+      },
+      text: {
+        red: 'text-red-50',
+        blue: 'text-blue-50',
+        green: 'text-green-50'
+      },
+    }
+  }
+
   const [currentMinutes, setCurrentMinutes] = useState(pomodoro.times.focus)
   const [currentSeconds, setCurrentSeconds] = useState(0)
   const [currentStage, setCurrentStage] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
-  const [currentTheme, setCurrentTheme] = useState('red' as ThemeColor)
-  // const { theme: colorMode} = useTheme()
-
-  type ThemeColor = "red" | "green" | "blue"
+  const [currentTheme, setCurrentTheme] = useState<ThemeColor>('red')
 
   const playToggle = () => {
     setIsRunning(!isRunning)
