@@ -81,10 +81,6 @@ export default function Home() {
   const [isRunning, setIsRunning] = useState(false)
   const [currentTheme, setCurrentTheme] = useState<ThemeColor>('red')
 
-  const playToggle = () => {
-    setIsRunning(!isRunning)
-  }
-
   useEffect( () => {
     if(currentStage < pomodoro.stages.length){
 
@@ -151,7 +147,7 @@ export default function Home() {
 
         <div className='flex flex-row gap-4 mt-6 items-center justify-center'>
           <Settings currentTheme={currentTheme}/>
-          <Button isIconOnly className={`${theme.light.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.light.text[currentTheme]} rounded-3xl`} onClick={playToggle}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
+          <Button isIconOnly className={`${theme.light.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.light.text[currentTheme]} rounded-3xl`} onClick={()=>setIsRunning(!isRunning)}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
           <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2xl`} onClick={nextStage}><FaForward/></Button>
         </div>
 
