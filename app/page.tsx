@@ -19,7 +19,7 @@ export default function Home() {
       long: 15,
     },
     stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break'],
-    options:{
+    options: {
       autoStart: true
     }
   })
@@ -146,7 +146,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row gap-4 mt-6 items-center justify-center'>
-          <Settings currentTheme={currentTheme}/>
+          <Settings currentTheme={currentTheme} pomodoro={pomodoro} setPomodoro={setPomodoro}/>
           <Button isIconOnly className={`${theme.light.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.light.text[currentTheme]} rounded-3xl`} onClick={()=>setIsRunning(!isRunning)}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
           <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2xl`} onClick={nextStage}><FaForward/></Button>
         </div>
