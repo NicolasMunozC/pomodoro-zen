@@ -4,10 +4,10 @@ import Settings from "@/componets/Settings";
 import { Pomodoro } from "@/types/interfaces";
 import { theme } from "@/utils/theme";
 import { Button, Chip } from "@nextui-org/react";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { CgCoffee } from "react-icons/cg";
-import { FaBrain, FaForward, FaPause, FaPlay, FaSlidersH } from "react-icons/fa";
+import { FaBrain, FaForward, FaPause, FaPlay } from "react-icons/fa";
 
 export default function Home() {
 
@@ -18,15 +18,17 @@ export default function Home() {
       long: 15,
     },
     stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break'],
+    options:{
+      autoStart: true
+    }
   })
 
   const [currentMinutes, setCurrentMinutes] = useState(pomodoro.times.focus)
   const [currentSeconds, setCurrentSeconds] = useState(0)
   const [currentStage, setCurrentStage] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
-  const [autoStart, setAutoStart] = useState(true)
   const [currentTheme, setCurrentTheme] = useState('red' as ThemeColor)
-  const { theme: colorMode} = useTheme()
+  // const { theme: colorMode} = useTheme()
 
   type ThemeColor = "red" | "green" | "blue"
 
@@ -37,7 +39,7 @@ export default function Home() {
   useEffect( () => {
     if(currentStage < pomodoro.stages.length){
 
-      if(!autoStart) setIsRunning(false)
+      if(!pomodoro.options.autoStart) setIsRunning(false)
 
       if(pomodoro.stages[currentStage] === 'Focus'){
         setCurrentTheme('red')
@@ -54,7 +56,7 @@ export default function Home() {
         setCurrentSeconds(0)
       }
     } 
-  }, [currentStage, pomodoro, autoStart])
+  }, [currentStage, pomodoro])
   
   useEffect( () => {
     if(isRunning) {
