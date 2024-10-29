@@ -17,13 +17,10 @@ export default function Home() {
       short: 5,
       long: 15,
     },
-    stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break']
+    stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break'],
   })
 
-  const [focusTime, setFocusTime] = useState(25)
-  const [shortBreakTime, setShortBreakTime] = useState(5)
-  const [longBreakTime, setLongBreakTime] = useState(15)
-  const [currentMinutes, setCurrentMinutes] = useState(focusTime)
+  const [currentMinutes, setCurrentMinutes] = useState(pomodoro.times.focus)
   const [currentSeconds, setCurrentSeconds] = useState(0)
   const [currentStage, setCurrentStage] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
@@ -33,35 +30,31 @@ export default function Home() {
 
   type ThemeColor = "red" | "green" | "blue"
 
-
-
-  const pomodoroStages:string[] = ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break']
-
   const playToggle = () => {
     setIsRunning(!isRunning)
   }
 
   useEffect( () => {
-    if(currentStage < pomodoroStages.length){
+    if(currentStage < pomodoro.stages.length){
 
       if(!autoStart) setIsRunning(false)
 
-      if(pomodoroStages[currentStage] === 'Focus'){
+      if(pomodoro.stages[currentStage] === 'Focus'){
         setCurrentTheme('red')
-        setCurrentMinutes(focusTime)
+        setCurrentMinutes(pomodoro.times.focus)
         setCurrentSeconds(0)
       } 
-      else if (pomodoroStages[currentStage] === 'Short Break'){
+      else if (pomodoro.stages[currentStage] === 'Short Break'){
         setCurrentTheme('green')
-        setCurrentMinutes(shortBreakTime)
+        setCurrentMinutes(pomodoro.times.short)
         setCurrentSeconds(0)
       } else {
         setCurrentTheme('blue')
-        setCurrentMinutes(longBreakTime)
+        setCurrentMinutes(pomodoro.times.long)
         setCurrentSeconds(0)
       }
     } 
-  }, [currentStage, focusTime, shortBreakTime, longBreakTime, autoStart])
+  }, [currentStage, pomodoro, autoStart])
   
   useEffect( () => {
     if(isRunning) {
@@ -71,7 +64,7 @@ export default function Home() {
           setCurrentMinutes(currentMinutes - 1)
           setCurrentSeconds(59)
         } else {
-          if(currentStage === pomodoroStages.length - 1){
+          if(currentStage === pomodoro.stages.length - 1){
             resetPomodoro()
           } else {
             setCurrentStage(currentStage + 1)
@@ -89,7 +82,7 @@ export default function Home() {
 
 
   function nextStage() {
-    if(currentStage >= pomodoroStages.length - 1) resetPomodoro()
+    if(currentStage >= pomodoro.stages.length - 1) resetPomodoro()
     else setCurrentStage(currentStage + 1)
   }
 
@@ -98,7 +91,7 @@ export default function Home() {
   return (
     <div className={`w-full h-full grid place-content-center ${theme.light.bg[currentTheme]}`}>
       <div className="w-fit h-fit flex flex-col">
-        <Chip variant="bordered" classNames={{base: `${theme.light.chip.border[currentTheme]} px-10 py-4 text-xl mx-auto ${theme.light.text[currentTheme]} ${theme.light.chip.bg[currentTheme]}`}} startContent={pomodoroStages[currentStage] === 'Focus' ? <FaBrain/> : <CgCoffee/>}>{pomodoroStages[currentStage]}</Chip>
+        <Chip variant="bordered" classNames={{base: `${theme.light.chip.border[currentTheme]} px-10 py-4 text-xl mx-auto ${theme.light.text[currentTheme]} ${theme.light.chip.bg[currentTheme]}`}} startContent={pomodoro.stages[currentStage] === 'Focus' ? <FaBrain/> : <CgCoffee/>}>{pomodoro.stages[currentStage]}</Chip>
 
         <div className={`flex flex-col text-[12rem] leading-none text-center ${theme.light.text[currentTheme]}`}>
           <h1 className={`${isRunning ? 'font-bold' : 'font-thin'}`}>{currentMinutes > 9 ? currentMinutes : '0' + currentMinutes}</h1>
@@ -106,12 +99,9 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row gap-4 mt-6 items-center justify-center'>
-          {/* <SettingsButton currentTheme={currentTheme} focusTime={focusTime} setFocusTime={setFocusTime} shortBreakTime={shortBreakTime} setShortBreakTime={setShortBreakTime} longBreakTime={longBreakTime} setLongBreakTime={setLongBreakTime} autoStart={autoStart} setAutoStart={setAutoStart}   /> */}
-          {/* <PlayButton currentTheme={currentTheme} isRunning={isRunning} setIsRunning={setIsRunning} /> */}
           <Settings currentTheme={currentTheme}/>
           <Button isIconOnly className={`${theme.light.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.light.text[currentTheme]} rounded-3xl`} onClick={playToggle}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
           <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2xl`} onClick={nextStage}><FaForward/></Button>
-          {/* <ForwardButton currentTheme={currentTheme} currentStage={currentStage} pomodoroStages={pomodoroStages} setCurrentStage={setCurrentStage} /> */}
         </div>
 
       </div>
