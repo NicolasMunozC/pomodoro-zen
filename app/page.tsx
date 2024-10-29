@@ -20,7 +20,8 @@ export default function Home() {
     },
     stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break'],
     options: {
-      autoStart: true
+      autoStart: true,
+      sound: false,
     }
   })
 
@@ -103,36 +104,59 @@ export default function Home() {
     } 
   }, [currentStage, pomodoro])
   
-  useEffect( () => {
-    if(isRunning) {
-      const interval = setInterval( () => {
-        if(currentSeconds > 0) setCurrentSeconds(currentSeconds - 1)
-        else if(currentMinutes > 0){
-          setCurrentMinutes(currentMinutes - 1)
-          setCurrentSeconds(59)
+  useEffect(() => {
+
+    let sound: HTMLAudioElement | null = null;
+
+
+    if (isRunning) {
+      const interval = setInterval(() => {
+        // Calcula los próximos valores de minutos y segundos
+        const nextMinutes = currentSeconds > 0 ? currentMinutes : currentMinutes - 1;
+        const nextSeconds = currentSeconds > 0 ? currentSeconds - 1 : 59;
+  
+        // Actualiza el título con el próximo valor en vez del valor actual
+        document.title = `Zen: ${nextMinutes > 9 ? nextMinutes : '0' + nextMinutes}:${nextSeconds > 9 ? nextSeconds : '0' + nextSeconds} - ${pomodoro.stages[currentStage]}`;
+  
+        // Ajusta el temporizador en pantalla
+        if (currentSeconds > 0) {
+          setCurrentSeconds(currentSeconds - 1);
+        } else if (currentMinutes > 0) {
+          setCurrentMinutes(currentMinutes - 1);
+          setCurrentSeconds(59);
         } else {
-          if(currentStage === pomodoro.stages.length - 1){
-            resetPomodoro()
+          
+          if(pomodoro.options.sound){
+            if (!sound) sound = new Audio('/assets/sound.mp3');
+            sound.play()
+          }
+
+          if (currentStage === pomodoro.stages.length - 1) {
+            resetPomodoro();
           } else {
-            setCurrentStage(currentStage + 1)
+            setCurrentStage(currentStage + 1);
           }
         }
-      }, 1000)
-      return () => clearInterval(interval)
+      }, 1000);
+  
+      return () => clearInterval(interval);
     }
-  })
+  }, [isRunning, currentMinutes, currentSeconds, currentStage, pomodoro]);
 
   function resetPomodoro(){
     setIsRunning(false)
     setCurrentStage(0)
   }
 
+  useEffect(()=>{
+    resetPomodoro()
+  },[pomodoro])
+
 
   function nextStage() {
     if(currentStage >= pomodoro.stages.length - 1) resetPomodoro()
     else setCurrentStage(currentStage + 1)
   }
-
 
 
   return (

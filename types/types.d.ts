@@ -6,7 +6,8 @@ export interface Pomodoro {
     },
     stages: string[],
     options: {
-        autoStart: boolean
+        autoStart: boolean,
+        sound: boolean
     }
   }
 
