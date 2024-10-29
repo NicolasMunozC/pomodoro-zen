@@ -1,5 +1,7 @@
 'use client'
 
+import Settings from "@/componets/Settings";
+import { theme } from "@/utils/theme";
 import { Button, Chip } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -21,56 +23,7 @@ export default function Home() {
 
   type ThemeColor = "red" | "green" | "blue"
 
-  const theme = {
-    light:{
-      bg: {
-        red: 'bg-red-50',
-        blue: 'bg-blue-50',
-        green: 'bg-green-50'
-      },
-      text: {
-        red: 'text-red-950',
-        blue: 'text-blue-950',
-        green: 'text-green-950'
-      },
-      chip:{
-        bg:{
-          red: 'bg-redAlpha-100/[0.15]',
-          blue: 'bg-blueAlpha-100/[0.15]',
-          green: 'bg-greenAlpha-100/[0.15]'
-        },
-        border:{
-          red: 'border-red-900',
-          blue: 'border-blue-900',
-          green: 'border-green-900'
-        }
-      },
-      button:{
-        bg: {
-          red: 'bg-redAlpha-100/[0.15]',
-          blue: 'bg-blueAlpha-100/[0.15]',
-          green: 'bg-greenAlpha-100/[0.15]'
-        },
-        specialBg: {
-          red: 'bg-redAlpha-700/[0.71]',
-          blue: 'bg-blueAlpha-600/[0.62]',
-          green: 'bg-greenAlpha-600/[0.62]'
-        }
-      }
-    },
-    dark: {
-      bg:{
-        red: 'bg-red-950',
-        blue: 'bg-blue-950',
-        green: 'bg-green-950'
-      },
-      text: {
-        red: 'text-red-50',
-        blue: 'text-blue-50',
-        green: 'text-green-50'
-      },
-    }
-  }
+
 
   const pomodoroStages:string[] = ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break']
 
@@ -145,7 +98,7 @@ export default function Home() {
         <div className='flex flex-row gap-4 mt-6 items-center justify-center'>
           {/* <SettingsButton currentTheme={currentTheme} focusTime={focusTime} setFocusTime={setFocusTime} shortBreakTime={shortBreakTime} setShortBreakTime={setShortBreakTime} longBreakTime={longBreakTime} setLongBreakTime={setLongBreakTime} autoStart={autoStart} setAutoStart={setAutoStart}   /> */}
           {/* <PlayButton currentTheme={currentTheme} isRunning={isRunning} setIsRunning={setIsRunning} /> */}
-          <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2loxl`}><FaSlidersH/></Button>
+          <Settings currentTheme={currentTheme}/>
           <Button isIconOnly className={`${theme.light.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.light.text[currentTheme]} rounded-3xl`} onClick={playToggle}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
           <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2xl`} onClick={nextStage}><FaForward/></Button>
           {/* <ForwardButton currentTheme={currentTheme} currentStage={currentStage} pomodoroStages={pomodoroStages} setCurrentStage={setCurrentStage} /> */}
