@@ -1,6 +1,7 @@
 'use client'
 
 import Settings from "@/componets/Settings";
+import { Pomodoro } from "@/types/interfaces";
 import { theme } from "@/utils/theme";
 import { Button, Chip } from "@nextui-org/react";
 import { useTheme } from "next-themes";
@@ -9,6 +10,15 @@ import { CgCoffee } from "react-icons/cg";
 import { FaBrain, FaForward, FaPause, FaPlay, FaSlidersH } from "react-icons/fa";
 
 export default function Home() {
+
+  const [pomodoro, setPomodoro] = useState<Pomodoro>({
+    times:{
+      focus: 25,
+      short: 5,
+      long: 15,
+    },
+    stages: ['Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Short Break', 'Focus', 'Long Break']
+  })
 
   const [focusTime, setFocusTime] = useState(25)
   const [shortBreakTime, setShortBreakTime] = useState(5)
