@@ -4,7 +4,7 @@ export interface Pomodoro {
       short: number,
       long: number,
     },
-    stages: string[].
+    stages: string[],
     options: {
         autoStart: boolean
     }

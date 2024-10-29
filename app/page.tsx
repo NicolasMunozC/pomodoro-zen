@@ -7,7 +7,8 @@ import { Button, Chip } from "@nextui-org/react";
 // import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { CgCoffee } from "react-icons/cg";
-import { FaBrain, FaForward, FaPause, FaPlay } from "react-icons/fa";
+import { FaForward, FaPause, FaPlay } from "react-icons/fa";
+import { PiBrain } from "react-icons/pi";
 
 export default function Home() {
 
@@ -93,7 +94,7 @@ export default function Home() {
   return (
     <div className={`w-full h-full grid place-content-center ${theme.light.bg[currentTheme]}`}>
       <div className="w-fit h-fit flex flex-col">
-        <Chip variant="bordered" classNames={{base: `${theme.light.chip.border[currentTheme]} px-10 py-4 text-xl mx-auto ${theme.light.text[currentTheme]} ${theme.light.chip.bg[currentTheme]}`}} startContent={pomodoro.stages[currentStage] === 'Focus' ? <FaBrain/> : <CgCoffee/>}>{pomodoro.stages[currentStage]}</Chip>
+        <Chip variant="bordered" classNames={{base: `${theme.light.chip.border[currentTheme]} px-10 py-4 text-xl mx-auto ${theme.light.text[currentTheme]} ${theme.light.chip.bg[currentTheme]}`}} startContent={pomodoro.stages[currentStage] === 'Focus' ? <PiBrain/> : <CgCoffee/>}>{pomodoro.stages[currentStage]}</Chip>
 
         <div className={`flex flex-col text-[12rem] leading-none text-center ${theme.light.text[currentTheme]}`}>
           <h1 className={`${isRunning ? 'font-bold' : 'font-thin'}`}>{currentMinutes > 9 ? currentMinutes : '0' + currentMinutes}</h1>
