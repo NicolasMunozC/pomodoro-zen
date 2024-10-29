@@ -11,15 +11,22 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure()
 
-    const handleSwitch = ({type, event}:{
+    const handleSwitch = ({type}:{
         type: 'sound' | 'autoStart',
-        event: boolean
     }) => {
 
-        if(type === 'autoStart' && event) setPomodoro( prev => ({...prev, options: {...prev.options, autoStart: event}}) )
-        if(type === 'sound' && event) setPomodoro( prev => ({...prev, options: {...prev.options, sound: event}}) )
+        switch (type) {
+            case 'sound':
+                setPomodoro( prev => ({...prev, options: {...prev.options, sound: !prev.options.sound}}) )
+                break;
 
-        return
+            case 'autoStart':
+                setPomodoro( prev => ({...prev, options: {...prev.options, autoStart: !prev.options.autoStart}}) )
+                break;
+        
+            default:
+                break;
+        }
     }
 
     const timesChanger = ({type, time}:
@@ -27,10 +34,23 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
             type: 'focus' | 'short' | 'long',
             time: number
         }) => {
-        if(type === 'focus' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, focus: time} }))
-        if(type === 'short' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, short: time} }))
-        if(type === 'long' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, long: time} }))
-        return
+
+            switch (type) {
+                case 'focus':
+                    setPomodoro( prev => ({...prev, times: { ...pomodoro.times, focus: time} }))
+                    break;
+
+                case 'short':
+                    setPomodoro( prev => ({...prev, times: { ...pomodoro.times, short: time} }))
+                    break;
+
+                case 'long':
+                    setPomodoro( prev => ({...prev, times: { ...pomodoro.times, long: time} }))
+                    break;
+            
+                default:
+                    break;
+            }
     }
 
     return (
@@ -42,7 +62,7 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
                 <ModalBody>
                     <div className="flex flex-row justify-between">
                         <span>Auto start</span>
-                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={ event => handleSwitch({type: 'autoStart', event})}/>
+                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={() => handleSwitch({type: 'autoStart'})}/>
                     </div>
                     <div className="flex flex-row justify-between w-full">
                         <span>Focus Time</span>
@@ -58,7 +78,7 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
                     </div>
                     <div className="flex flex-row justify-between">
                         <span>Sound</span>
-                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={ event => handleSwitch({type: 'sound', event})}/>
+                        <Switch isSelected={pomodoro.options.sound} onValueChange={()=>{handleSwitch({type:'sound'})}}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>
