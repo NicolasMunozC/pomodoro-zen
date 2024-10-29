@@ -11,13 +11,22 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure()
 
+    const handleSwitch = ({type, event}:{
+        type: 'sound' | 'autoStart',
+        event: boolean
+    }) => {
 
-    const handleAutoStart = (event: boolean) => {
-        setPomodoro( prev => ({...prev, options: {...prev.options, autoStart: event}}) )
+        if(type === 'autoStart' && event) setPomodoro( prev => ({...prev, options: {...prev.options, autoStart: event}}) )
+        if(type === 'sound' && event) setPomodoro( prev => ({...prev, options: {...prev.options, sound: event}}) )
+
         return
     }
 
-    const timesChanger = ({type, time}: {type: string, time: number}) => {
+    const timesChanger = ({type, time}:
+        {
+            type: 'focus' | 'short' | 'long',
+            time: number
+        }) => {
         if(type === 'focus' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, focus: time} }))
         if(type === 'short' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, short: time} }))
         if(type === 'long' && time) setPomodoro( prev => ({...prev, times: { ...pomodoro.times, long: time} }))
@@ -33,7 +42,7 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
                 <ModalBody>
                     <div className="flex flex-row justify-between">
                         <span>Auto start</span>
-                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={handleAutoStart}/>
+                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={ event => handleSwitch({type: 'autoStart', event})}/>
                     </div>
                     <div className="flex flex-row justify-between w-full">
                         <span>Focus Time</span>
@@ -46,6 +55,10 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
                     <div className="flex flex-row justify-between">
                         <span>Long Break Time</span>
                         <Input type="number" size="sm" className='w-16' value={pomodoro.times.long.toString()} onChange={event => timesChanger({type: 'long', time: parseFloat(event.target.value)})}/>
+                    </div>
+                    <div className="flex flex-row justify-between">
+                        <span>Sound</span>
+                        <Switch isSelected={pomodoro.options.autoStart} onValueChange={ event => handleSwitch({type: 'sound', event})}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>
