@@ -15,11 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <UIProvider>
-          {children}
-        </UIProvider>
-      </body>
+        <body className="w-screen min-h-screen h-screen flex flex-col overflow-hidden">
+          <UIProvider>
+            {children}
+          </UIProvider>
+        </body>
     </html>
   );
 }
