@@ -11,4 +11,41 @@ export interface Pomodoro {
     }
   }
 
-export type ThemeColor = "red" | "green" | "blue"
+export interface Theme {
+  bg: {
+    focus: string,
+    short: string,
+    long: string,
+  },
+  text: {
+    focus: string,
+    short: string,
+    long: string,
+  },
+  chip:{
+    bg:{
+      focus: string,
+      short: string,
+      long: string,
+    },
+    border:{
+      focus: string,
+      short: string,
+      long: string,
+    }
+  },
+  button:{
+    bg: {
+      focus: string,
+      short: string,
+      long: string,
+    },
+    specialBg: {
+      focus: string,
+      short: string,
+      long: string,
+    }
+  }
+}
+
+export type ThemeColor = "focus" | "short" | "long"

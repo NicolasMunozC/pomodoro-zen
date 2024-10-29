@@ -1,12 +1,12 @@
-import { Pomodoro } from "@/types/types";
-import { theme } from "@/utils/theme";
+import { Pomodoro, Theme, ThemeColor } from "@/types/types";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch, useDisclosure } from "@nextui-org/react";
 import { IoMdSettings } from "react-icons/io";
 
-export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
-    currentTheme: "red" | "green" | "blue",
+export default function Settings({currentTheme, pomodoro,  setPomodoro, theme}:{
+    currentTheme: ThemeColor
     pomodoro: Pomodoro,
-    setPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>
+    setPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>,
+    theme: Theme
 }) {
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure()
@@ -55,7 +55,7 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro}:{
 
     return (
         <>
-        <Button isIconOnly className={`${theme.light.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.light.text[currentTheme]} rounded-2xl`} onClick={onOpen}><IoMdSettings/></Button>
+        <Button isIconOnly className={`${theme.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.text[currentTheme]} rounded-2xl`} onClick={onOpen}><IoMdSettings/></Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} placement="center" backdrop="blur">
             <ModalContent>
                 <ModalHeader>Settings</ModalHeader>
