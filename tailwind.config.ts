@@ -11,10 +11,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily:{
-        'roboto-mono': 'Roboto Mono Variable, monospace',
-        'roboto': 'Roboto, sans-serif',
-        'poppins': 'Poppins, sans-serif',
-        'montserrat': 'Montserrat Variable, sans-serif',
+        'roboto': ['Roboto', 'sans-serif'],
+        'roboto-mono': ['Roboto Mono', 'monospace'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
       },
       colors: {
         redAlpha: {
@@ -62,5 +62,11 @@ const config: Config = {
   },
   darkMode: "class",
   plugins: [nextui()],
+  safelist: [
+    'roboto',
+    'roboto-mono',
+    'poppins',
+    'montserrat',
+  ],
 };
 export default config;

@@ -1,12 +1,13 @@
 import { Pomodoro, Theme, ThemeColor } from "@/types/types";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch, useDisclosure } from "@nextui-org/react";
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Switch, useDisclosure } from "@nextui-org/react";
 import { IoMdSettings } from "react-icons/io";
 
-export default function Settings({currentTheme, pomodoro,  setPomodoro, theme}:{
+export default function Settings({currentTheme, pomodoro,  setPomodoro, theme, setTheme}:{
     currentTheme: ThemeColor
     pomodoro: Pomodoro,
     setPomodoro: React.Dispatch<React.SetStateAction<Pomodoro>>,
     theme: Theme
+    setTheme: React.Dispatch<React.SetStateAction<Theme>>,
 }) {
 
     const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure()
@@ -79,6 +80,16 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro, theme}:{
                     <div className="flex flex-row justify-between">
                         <span>Sound</span>
                         <Switch isSelected={pomodoro.options.sound} onValueChange={()=>{handleSwitch({type:'sound'})}}/>
+                    </div>
+                    <div className="flex flex-row justify-between">
+                        <span>Typography</span>
+                        {/* <Switch isSelected={pomodoro.options.sound} onValueChange={()=>{handleSwitch({type:'sound'})}}/> */}
+                        <Select classNames={{base: "w-32"}} size="sm" selectedKeys={[theme.font]} onChange={event => { setTheme( olds => ({...olds, font: event.target.value as Theme['font']})) }}>
+                            <SelectItem key={'font-roboto'}>Roboto</SelectItem>
+                            <SelectItem key={'font-roboto-mono'}>Roboto Mono</SelectItem>
+                            <SelectItem key={'font-poppins'}>Poppins</SelectItem>
+                            <SelectItem key={'font-montserrat'}>Montserrat</SelectItem>
+                        </Select>
                     </div>
                 </ModalBody>
                 <ModalFooter>

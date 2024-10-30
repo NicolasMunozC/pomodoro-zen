@@ -157,7 +157,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row gap-4 mt-6 items-center justify-center'>
-          <Settings theme={theme} currentTheme={currentTheme} pomodoro={pomodoro} setPomodoro={setPomodoro}/>
+          <Settings theme={theme} currentTheme={currentTheme} setTheme={setTheme} pomodoro={pomodoro} setPomodoro={setPomodoro}/>
           <Button isIconOnly className={`${theme.button.specialBg[currentTheme]} w-32 h-24 text-2xl ${theme.text[currentTheme]} rounded-3xl`} onClick={()=>setIsRunning(!isRunning)}>{isRunning ? <FaPause/> : <FaPlay/>}</Button>
           <Button isIconOnly className={`${theme.button.bg[currentTheme]} w-16 h-16 text-xl ${theme.text[currentTheme]} rounded-2xl`} onClick={nextStage}><FaForward/></Button>
         </div>
