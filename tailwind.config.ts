@@ -10,6 +10,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        'roboto-mono': 'Roboto Mono Variable, monospace',
+        'roboto': 'Roboto, sans-serif',
+        'poppins': 'Poppins, sans-serif',
+        'montserrat': 'Montserrat Variable, sans-serif',
+      },
       colors: {
         redAlpha: {
           50: '#FF4C4C',
