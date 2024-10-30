@@ -45,7 +45,8 @@ export interface Theme {
       short: string,
       long: string,
     }
-  }
+  },
+  font: 'font-roboto' | 'font-roboto-mono' | 'font-poppins' | 'font-montserrat'
 }
 
 export type ThemeColor = "focus" | "short" | "long"

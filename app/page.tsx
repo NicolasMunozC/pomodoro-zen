@@ -59,7 +59,8 @@ export default function Home() {
         short: 'bg-greenAlpha-600/[0.62]',
         long: 'bg-blueAlpha-600/[0.62]',
       }
-    }
+    },
+    font: 'font-roboto'
   })
 
   const [currentMinutes, setCurrentMinutes] = useState(pomodoro.times.focus)
@@ -146,7 +147,7 @@ export default function Home() {
 
 
   return (
-    <div className={`w-full h-full grid place-content-center ${theme.bg[currentTheme]}`}>
+    <div className={`w-full h-full grid place-content-center ${theme.bg[currentTheme]} ${theme.font}`}>
       <div className="w-fit h-fit flex flex-col">
         <Chip variant="bordered" classNames={{base: `${theme.chip.border[currentTheme]} px-10 py-4 text-xl mx-auto ${theme.text[currentTheme]} ${theme.chip.bg[currentTheme]}`}} startContent={pomodoro.stages[currentStageIndex] === 'Focus' ? <PiBrain/> : <CgCoffee/>}>{pomodoro.stages[currentStageIndex]}</Chip>
 
