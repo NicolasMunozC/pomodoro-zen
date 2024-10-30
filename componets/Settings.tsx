@@ -1,5 +1,6 @@
 import { Pomodoro, Theme, ThemeColor } from "@/types/types";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Switch, useDisclosure } from "@nextui-org/react";
+import { Button, Input, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Switch, useDisclosure } from "@nextui-org/react";
+import { FaGithub } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 
 export default function Settings({currentTheme, pomodoro,  setPomodoro, theme, setTheme}:{
@@ -83,7 +84,6 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro, theme, s
                     </div>
                     <div className="flex flex-row justify-between">
                         <span>Typography</span>
-                        {/* <Switch isSelected={pomodoro.options.sound} onValueChange={()=>{handleSwitch({type:'sound'})}}/> */}
                         <Select classNames={{base: "w-32"}} size="sm" selectedKeys={[theme.font]} onChange={event => { setTheme( olds => ({...olds, font: event.target.value as Theme['font']})) }}>
                             <SelectItem key={'font-roboto'}>Roboto</SelectItem>
                             <SelectItem key={'font-roboto-mono'}>Roboto Mono</SelectItem>
@@ -91,9 +91,11 @@ export default function Settings({currentTheme, pomodoro,  setPomodoro, theme, s
                             <SelectItem key={'font-montserrat'}>Montserrat</SelectItem>
                         </Select>
                     </div>
+
                 </ModalBody>
-                <ModalFooter>
-                    Created by <a href="https://nmunoz.vercel.app" className="font-semibold">Nicolás Muñoz</a> 🪐☕️
+                <ModalFooter className="w-full justify-between flex flex-row items-center">
+                    <Button href="https://github.com/NicolasMunozC/pomodoro-zen" as={Link} variant="light" isIconOnly className="text-xl rounded-full"><FaGithub/></Button>
+                    <span>Created by <a href="https://nmunoz.vercel.app" className="font-semibold">Nicolás Muñoz</a> 🪐☕️</span>
                 </ModalFooter>
             </ModalContent>
 
